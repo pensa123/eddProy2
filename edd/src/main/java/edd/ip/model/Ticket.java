@@ -22,13 +22,13 @@ public class Ticket {
 
     }
 
-    public Ticket(String verificacion, double valor) {
-        codigo = contenedor.getInstance().nticket;
-        contenedor.getInstance().nticket++;
-        this.verificacion = verificacion;
-        this.emision = ZonedDateTime.now().toString();
+    public Ticket(double valor) {
+        //codigo = contenedor.getInstance().nticket;
+        //contenedor.getInstance().nticket++;
+        //this.verificacion = verificacion;
+        //this.emision = ZonedDateTime.now().toString();
         this.valor = valor;
-        saldo = valor;
+        this.saldo = valor;
     }
 
 }

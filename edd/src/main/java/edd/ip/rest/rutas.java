@@ -59,7 +59,11 @@ public class rutas {
         ruta tur;
         try {
             tur = new ObjectMapper().readValue(rt, ruta.class);
-            contenedor.getInstance().thash.agregar(tur);
+            if (tur.cv == null) {
+                contenedor.getInstance().thash.agregar(tur);
+            } else {
+                contenedor.getInstance().thash.editar(tur);
+            }
         } catch (Exception ioe) {
             return null;
         }
@@ -70,11 +74,11 @@ public class rutas {
     @Produces(MediaType.APPLICATION_JSON)
     public ruta[] getJson() {
         //TODO return proper representation object
-        
+
         int c = 2;
-        ruta[] rt =contenedor.getInstance().thash.getRutas(); 
+        ruta[] rt = contenedor.getInstance().thash.getRutas();
         c = 3;
-        return rt; 
+        return rt;
     }
 
     /**

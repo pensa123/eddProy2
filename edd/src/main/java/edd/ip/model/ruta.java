@@ -5,15 +5,20 @@
  */
 package edd.ip.model;
 
+import edd.ip.edd.Listap;
+
 /**
  *
  * @author pensa
  */
 public class ruta {
 
+    public String cv;
     public String codigo;
     public String nombre;
     public String color;
+    public Grafo grafo;
+    public Listap lt;
 
     public ruta() {
 

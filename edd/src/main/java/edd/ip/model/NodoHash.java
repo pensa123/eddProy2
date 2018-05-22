@@ -10,18 +10,29 @@ package edd.ip.model;
  * @author pensa
  */
 public class NodoHash {
-     NodoHash siguiente;
+
+    NodoHash siguiente;
     ruta ruta;
 
-    public void insertar(ruta codigo) {
+    public boolean insertar(ruta codigo) {
         if (ruta == null) {
             ruta = codigo;
+            return true;
         } else {
+            if (ruta.codigo.equals(codigo.codigo)) {
+                return false;
+            }
             System.out.println("choque ");
-            NodoHash n = new NodoHash();
-            n.insertar(codigo);
-            siguiente = n;
+            if (siguiente == null) {
+                NodoHash n = new NodoHash();
+                n.insertar(codigo);
+                siguiente = n;
+            } else {
+
+                return siguiente.insertar(codigo);
+            }
         }
+        return false;
     }
 
     public ruta get(String st) {
@@ -35,6 +46,5 @@ public class NodoHash {
 
         return null;
     }
-    
-    
+
 }

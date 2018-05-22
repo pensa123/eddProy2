@@ -30,10 +30,42 @@ public class TablaHash {
         return nl[a].get(st);
     }
 
+    public boolean editar(ruta r) {
+        boolean bl = false;
+        if (r.cv.equals(r.codigo)) {
+            ruta ar = this.getRut(r.codigo);
+            ar.nombre = r.nombre;
+            ar.color = r.color;
+            return true;
+        } else {
+            int n = dohash(r.cv);
+            NodoHash nodo = nl[n];
+            if (nodo.ruta.codigo.equals(r.cv)) {
+                nl[n] = nl[n].siguiente;
+                bl = true;
+            } else {
+                while (nodo.siguiente != null) {
+                    if (nodo.siguiente.ruta.codigo.equals(r.cv)) {
+                        nodo.siguiente = nodo.siguiente.siguiente;
+                        bl = true;
+                        break;
+                    }
+                    nodo = nodo.siguiente;
+                }
+            }
+            if (bl) {
+
+                this.agregar(r);
+                contenedor.getInstance().nruta = contenedor.getInstance().nruta - 1;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ruta[] getRutas() {
         int n = contenedor.getInstance().nruta;
         ruta[] rtlist = new ruta[n];
-        
         int aux = 0;
         for (NodoHash item : nl) {
             while (item != null) {
@@ -42,9 +74,16 @@ public class TablaHash {
                 item = item.siguiente;
             }
         }
-
         return rtlist;
 
+    }
+
+    public boolean agregar(camino c) {
+        return false;
+    }
+
+    public boolean editar(camino c) {
+        return false;
     }
 
     public boolean agregar(ruta codigo) {
@@ -53,10 +92,12 @@ public class TablaHash {
         if (nl[n] == null) {
             nl[n] = new NodoHash();
         }
-        contenedor.getInstance().nruta++;
-        System.out.println(n + "   " + codigo.codigo);
-        nl[n].insertar(codigo);
-        return true;
+        boolean ab = nl[n].insertar(codigo);
+        if (ab) {
+            contenedor.getInstance().nruta++;
+            System.out.println(n + "   " + codigo.codigo);
+        }
+        return ab;
     }
 
     public int dohash(String codigo) {

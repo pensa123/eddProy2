@@ -9,10 +9,18 @@ package edd.ip.edd;
  *
  * @author pensa
  */
-public class lista {
+public class Listap {
 
     public Object contenido;
-    public lista siguiente;
-    
-    
+    public Listap siguiente;
+    public String codigo;
+
+    public boolean insertar(Object ob, String cod) {
+        return false;
+    }
+
+    public Object buscar(String cod) {
+        return null;
+    }
+
 }

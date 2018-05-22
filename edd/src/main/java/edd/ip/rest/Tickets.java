@@ -7,7 +7,9 @@ package edd.ip.rest;
 
 import edd.ip.edd.contenedor;
 import edd.ip.model.Estacion;
+import edd.ip.model.Pagos;
 import edd.ip.model.Ticket;
+import java.time.ZonedDateTime;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -26,7 +28,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  */
 @Path("Ticket")
 public class Tickets {
-    
+
     @Context
     private UriInfo context;
 
@@ -35,20 +37,49 @@ public class Tickets {
      */
     public Tickets() {
     }
-    
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Ticket addEst(String rt) {
         //contenedor.getInstance
-        Ticket t;
+        Ticket t = new Ticket();
         try {
             t = new ObjectMapper().readValue(rt, Ticket.class);
-            contenedor.getInstance().insertarTicket(t);
+            boolean esDevolucion = false;
+            if (t.verificacion != null) {
+                esDevolucion = true;
+                String tick = t.verificacion.split(",")[1];
+                Ticket jk = contenedor.getInstance().arbolB.buscar(Integer.parseInt(tick));
+                //Ticket jk = contenedor.getInstance().arbolB.buscarIngrid(t.verificacion);
+                if (jk != null) {
+                    t.valor = jk.valor;
+                    jk.valor = 0;
+                    jk.devolucion = ZonedDateTime.now().toString();
+                } else {
+                    t.valor = -1;
+                }
+            }
+            if (t.valor != 0 && !esDevolucion) {
+                contenedor.getInstance().insertarTicket(t);
+                contenedor.getInstance().arbolB.ultimoCodigo = t.codigo;
+            }
             //contenedor.getInstance().agregarEstacion(e);
             return t;
         } catch (Exception ee) {
+            try {
+                Pagos p = new ObjectMapper().readValue(rt, Pagos.class);
+                Estacion auxe = contenedor.getInstance().getEstacion(p.estacion);
+                Ticket tic = contenedor.getInstance().arbolB.buscar(p.codigo);
+                if (tic.saldo - auxe.precio >= 0) {
+                    p.est = auxe;
+                    tic.saldo -= auxe.precio;
+                }
+                t.saldo = -1;
+            } catch (Exception iii) {
+                t.saldo = -2;
+            }
         }
-        return null;
+        return t;
     }
 
     /**
@@ -58,9 +89,9 @@ public class Tickets {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Ticket getJson() {
+    public Ticket[] getJson() {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        return contenedor.getInstance().getTickets();
     }
 
     /**

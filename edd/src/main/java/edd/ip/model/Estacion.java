@@ -5,17 +5,29 @@
  */
 package edd.ip.model;
 
+import edd.ip.edd.Listap;
+
 /**
  *
  * @author pensa
  */
 public class Estacion {
 
+    public String cv;
     public String codigo;
     public String nombre;
     public double precio;
     public double longitud;
     public double latitud;
+    public Listap lt;
+
+    public void copiar(Estacion e) {
+        codigo = e.codigo;
+        nombre = e.nombre;
+            precio = e.precio;
+        longitud = e.longitud;
+        latitud = e.latitud;
+    }
 
     @Override
     public String toString() {

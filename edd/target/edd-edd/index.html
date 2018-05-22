@@ -6,83 +6,240 @@
 
         <link rel="stylesheet" href="boostrap/css/bootstrap.min.css" >
 
+        <script src="boostrap/js/angular.min.js"></script>
     </head>
     <body>
-        <div class="container">
-            <h1>Hello World!</h1>
-        </div>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </button>
+        <br/>
+
+        <div class="container">	
+            <h1>Edd-URBAN</h1>			  
+            <div class="row">
+                <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Estaciones</a>
+                        <a class="nav-link"  href="rutas.html" role="tab" aria-controls="v-pills-profile" aria-selected="false">Rutas</a>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                            <div class="">
+                                <h2>Estaciones</h2>
+                                <div class="row" ng-app="myApp" ng-controller="customersCtrl">
+                                    <div class="col-sm-6" ng-repeat="x in myData">
+                                        <div class="card border-success mb-3">
+                                            <div class="card-header">Codigo: {{x.codigo}}</div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Nombre: {{ x.nombre}}</h5>
+                                                <ul>                                  
+                                                    <li>Latitud: {{x.latitud}}</li>
+                                                    <li>Longitud: {{x.longitud}}</li>
+                                                    <li>Precio: {{x.precio}}</li>
+                                                </ul>
+
+                                                <a href="#" ng-click='myFunc(x)' class="btn btn-primary edEst">Editar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <br>
+                            <p>
+                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    +
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Codigo</label>
+                                        <input type="text" class="form-control" id="eCod" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Latitud</label>
+                                        <input type="number" step="any" class="form-control" id="eLat" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Longitud</label>
+                                        <input type="number" step="any" class="form-control" id="eLong" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Nombre</label>
+                                        <input type="text"  class="form-control" id="eNom" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Precio</label>
+                                        <input type="number" step="any" class="form-control" id="ePrecio" placeholder="">
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button onclick="guardarEstacion()" type="submit" class="btn btn-primary">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">b</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title"><input id="esEditar" type="label" readonly ></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Codigo</label>
+                            <input type="text" class="form-control" id="edCod" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Latitud</label>
+                            <input type="number" step="any" class="form-control" id="edLat" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Longitud</label>
+                            <input type="number" step="any" class="form-control" id="edLong" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Nombre</label>
+                            <input type="text"  class="form-control" id="edNom" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Precio</label>
+                            <input type="number" step="any" class="form-control" id="edPrecio" placeholder="">
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="editEstacion()" class="btn btn-primary" data-dismiss="modal">Editar</button>
+
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <!--  <img src="matrix.jpg" />
-          <img src="uu.png" />
-          <img src="bb.png" />
-        -->
+
+        <hr/> 
+
+
+
+
+        <script src="boostrap/js/jquery-3.3.1.min.js">
+        </script>
+
         <script>
-            function hola() {
-                var url = "http://localhost:8080/edd-edd/m/rutas/?algo=jkjkjk";
-                var data = "algo jeje salu2";
+            function editEstacion() {
+                var cv = $("#esEditar").val();
+                var codigo = $('#edCod').val();
+                $('#eCod').val("");
+                var latitud = $('#edLat').val();
+                $("#eLat").val("");
+                var longitud = $('#edLong').val();
+                $('#eLong').val("");
+                var nombre = $('#edNom').val();
+                $('#eNom').val("");
+                var precio = $('#edPrecio').val();
+                $('#ePrecio').val("");
+                var url = "http://localhost:8080/edd-edd/m/estaciones";
+                var json = '{"codigo" : "' + codigo + '", "cv":"' + cv + '" ,"latitud": ' + latitud + ',"longitud" :  ' + longitud + ',"nombre": "' + nombre + '","precio" :  ' + precio + ' }';
 
                 var request = $.ajax({
                     url: url,
                     method: "POST",
-                    data: data,
+                    data: json
                 });
-
                 request.done(function (msg) {
-                    $("#log").html(msg);
+                    alert("Estacion editara correctamente.");
+                    location.reload();
                 });
-
                 request.fail(function (jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
                 });
 
             }
+
+            function guardarEstacion() {
+                //Get
+                var codigo = $('#eCod').val();
+                $('#eCod').val("");
+                var latitud = $('#eLat').val();
+                $("#eLat").val("");
+                var longitud = $('#eLong').val();
+                $('#eLong').val("");
+                var nombre = $('#eNom').val();
+                $('#eNom').val("");
+                var precio = $('#ePrecio').val();
+                $('#ePrecio').val("");
+                var url = "http://localhost:8080/edd-edd/m/estaciones";
+                var json = '{"codigo" : "' + codigo + '" ,"latitud": ' + latitud + ',"longitud" :  ' + longitud + ',"nombre": "' + nombre + '","precio" :  ' + precio + ' }';
+
+                var request = $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: json
+                });
+                request.done(function (msg) {
+                    alert("Estacion agregada correctamente." + msg.codigo);
+                    location.reload();
+                });
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+
+            }
+
+            var ap = angular.module('myApp', []);
+            ap.controller('customersCtrl', function ($scope, $http) {
+                $http.get("http://localhost:8080/edd-edd/m/estaciones").then(function (response) {
+                    $scope.myData = response.data;
+                });
+                $scope.func = function ()
+                {
+                    $http.get("http://localhost:8080/edd-edd/m/estaciones").then(function (response) {
+                        $scope.myData = response.data;
+                    });
+
+
+                }
+                $scope.myFunc = function (a) {
+                    $('#exampleModal').modal('toggle');
+                    $("#esEditar").val(a.codigo);
+                    $("#edCod").val(a.codigo);
+                    $("#edLat").val(a.latitud);
+                    $("#edLong").val(a.longitud);
+                    $("#edNom").val(a.nombre);
+                    $("#edPrecio").val(a.precio);
+                };
+            });
+
+
         </script>
 
-        <script src="boostrap/js/jquery-3.3.1.min.js"></script>
         <script src="boostrap/js/bootstrap.min.js"></script>
         <script src="boostrap/js/popper.min.js"></script>
+
+
 
 
     </body>

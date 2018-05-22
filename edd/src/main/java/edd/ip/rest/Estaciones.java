@@ -19,7 +19,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import edd.ip.edd.contenedor;
-import edd.ip.edd.lista;
+import edd.ip.edd.Listap;
+import javax.ws.rs.PathParam;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
@@ -49,7 +50,7 @@ public class Estaciones {
     public Estacion[] getJson() {
         Estacion[] el = new Estacion[contenedor.getInstance().nestaciones];
         int a = 0;
-        lista l = contenedor.getInstance().lestaciones;
+        Listap l = contenedor.getInstance().lestaciones;
         while (l != null) {
             if (l.contenido == null) {
                 break;
@@ -77,14 +78,22 @@ public class Estaciones {
     @Produces(MediaType.APPLICATION_JSON)
     public Estacion addEst(String rt) {
         //contenedor.getInstance
+        int a = 1;
         Estacion e;
         try {
             e = new ObjectMapper().readValue(rt, Estacion.class);
-            contenedor.getInstance().agregarEstacion(e);
-            return e;
+            if (e.cv == null) {
+                if (contenedor.getInstance().agregarEstacion(e)) {
+                    return e;
+                }
+            } else {
+                if (contenedor.getInstance().editarEstacion(e)) {
+                    return e; 
+                }
+            }
         } catch (Exception ee) {
         }
-        return null;
+        return new Estacion();
     }
 
 }

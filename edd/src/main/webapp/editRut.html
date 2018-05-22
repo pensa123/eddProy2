@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link rel="stylesheet" href="boostrap/css/bootstrap.min.css" >
+
+        <script src="boostrap/js/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="customersCtrl" >
+            <br/>
+            <div class="fade in collapse show" id="col2">
+
+                <div class="container">	
+                    <h1>Edd-URBAN</h1>			  
+                </div>
+            </div>
+
+
+            <div class="fade in collapse show" id="col">
+                <div class="container">
+
+                    <div class="card card-body">
+
+                        <div class="container">
+                            <h2>Ruta: <span id="ruta"></span></h2>
+                        </div>
+
+                        <div class="form-row"  >
+                            <div class="form-group col-md-6" >
+                                <label for="inputEmail4">Origen</label>
+
+                                <select  class="custom-select my-1 mr-sm-2">
+                                    <option  ng-repeat="x in estaciones" value ="{{x.codigo}}">{{x.nombre}}</option>
+                                </select> 
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Destino</label>
+                                <select class="custom-select my-1 mr-sm-2" >
+                                    <option  ng-repeat="x in estaciones" value ="{{x.codigo}}">{{x.nombre}}</option>
+                                </select>       
+                            </div>
+
+
+
+                            <div class="form-group col-md-6" >
+                                <label for="formGroupExampleInput2">Distancia</label>
+                                <input type="number" step="any" class="form-control" id="ePrecio" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput2">Trafico</label>
+                                <input type="number" step="any" class="form-control" id="ePrecio" placeholder="">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="boostrap/js/jquery-3.3.1.min.js">
+            </script>
+
+            <script>
+                        function editEstacion() {
+                            var editar = $("#esEditar").val();
+                            var codigo = $('#edCod').val();
+                            var latitud = $('#edLat').val();
+                            var nombre = $('#edNom').val();
+                            var color = $('#edCol').val();
+                            var url = "http://localhost:8080/edd-edd/m/rutas";
+                            var json = '{"codigo" : "' + codigo + '", "color":"' + color + '" ,"nombre": "' + nombre + '" , "cv" : "' + editar + '"}';
+                            var request = $.ajax({
+                                url: url,
+                                method: "POST",
+                                data: json
+                            });
+                            request.done(function (msg) {
+                                location.reload();
+                            });
+                            request.fail(function (jqXHR, textStatus) {
+                                alert("Request failed: " + textStatus);
+                            });
+                        }
+
+                        function guardarEstacion() {
+
+                            var codigo = $('#eCod').val();
+                            $('#eCod').val("");
+                            var nombre = $('#eNom').val();
+                            $('#eNom').val("");
+                            var color = $('#eCol').val();
+                            $('#eCol').val("");
+                            var url = "http://localhost:8080/edd-edd/m/rutas";
+                            var json = '{"codigo" : "' + codigo + '", "color":"' + color + '" ,"nombre": "' + nombre + '"}';
+                            var request = $.ajax({
+                                url: url,
+                                method: "POST",
+                                data: json
+                            });
+                            request.done(function (msg) {
+                                alert("Estacion editara correctamente.");
+                                location.reload();
+                            });
+                            request.fail(function (jqXHR, textStatus) {
+                                alert("Request failed: " + textStatus);
+                            });
+                        }
+
+                        var ap = angular.module('myApp', []);
+                        ap.controller('customersCtrl', function ($scope, $http) {
+                            $http.get("http://localhost:8080/edd-edd/m/rutas").then(function (response) {
+                                //alert(window.location.search.substr(1));
+
+                                $('#ruta').text((window.location.search.substr(1)));
+                                $scope.myData = response.data;
+                            });
+                            $http.get("http://localhost:8080/edd-edd/m/estaciones").then(function (response) {
+                                $scope.estaciones = response.data;
+                            });
+                            $scope.myFunc2 = function (a) {
+                                $('#col').collapse('show');
+                                $("#col2").collapse("hide");
+                                $('#rutCod').text(a.codigo);
+                                $('#rutNom').text(a.nombre);
+                            };
+                            $scope.myFunc = function (a) {
+                                $('#exampleModal').modal('toggle');
+                                $("#esEditar").val(a.codigo);
+                                $("#edCod").val(a.codigo);
+                                $("#edCol").val(a.color);
+                                $("#edNom").val(a.nombre);
+                            };
+                        });
+
+            </script>
+
+            <script src="boostrap/js/bootstrap.min.js"></script>
+            <script src="boostrap/js/popper.min.js"></script>
+
+
+
+
+    </body>
+</html>
