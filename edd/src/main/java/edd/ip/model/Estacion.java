@@ -13,6 +13,7 @@ import edd.ip.edd.Listap;
  */
 public class Estacion {
 
+    public codigo c = new codigo();
     public String cv;
     public String codigo;
     public String nombre;
@@ -20,13 +21,27 @@ public class Estacion {
     public double longitud;
     public double latitud;
     public Listap lt;
+    public int nCaminos;
 
     public void copiar(Estacion e) {
         codigo = e.codigo;
         nombre = e.nombre;
-            precio = e.precio;
+        precio = e.precio;
         longitud = e.longitud;
         latitud = e.latitud;
+        c.codigo = e.codigo;
+    }
+
+    public camino[] obtenerCaminos() {
+        camino[] c = new camino[nCaminos];
+        Listap aux = lt;
+        int i = 0;
+        while (aux != null) {
+            c[i] = (camino) aux.contenido;
+            i++;
+            aux = aux.siguiente;
+        }
+        return c;
     }
 
     @Override

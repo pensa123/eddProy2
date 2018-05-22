@@ -1,4 +1,5 @@
 edd/ip/model/EstacionString.class
+edd/ip/rest/CaminoResource.class
 edd/ip/model/Arista.class
 edd/ip/model/NodoHash.class
 edd/ip/model/NodoGrafo.class
@@ -8,6 +9,7 @@ edd/ip/edd/Listap.class
 edd/ip/model/TablaHash.class
 edd/ip/rest/rutas.class
 edd/ip/model/camino.class
+edd/ip/model/codigo.class
 edd/ip/model/ruta.class
 edd/ip/edd/contenedor.class
 edd/ip/rest/Hello.class

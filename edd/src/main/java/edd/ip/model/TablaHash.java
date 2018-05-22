@@ -5,6 +5,7 @@
  */
 package edd.ip.model;
 
+import edd.ip.edd.Listap;
 import edd.ip.edd.contenedor;
 
 /**
@@ -54,7 +55,6 @@ public class TablaHash {
                 }
             }
             if (bl) {
-
                 this.agregar(r);
                 contenedor.getInstance().nruta = contenedor.getInstance().nruta - 1;
                 return true;
@@ -78,8 +78,44 @@ public class TablaHash {
 
     }
 
+    public camino[] getcaminos(String cod) {
+        ruta r = this.getRut(cod);
+        camino[] cm = new camino[r.nCaminos];
+        if (r.lt == null) {
+            return null;
+        }
+        int c = 0;
+        Listap aux = r.lt;
+        do {
+            cm[c]= (camino)aux.contenido;
+            c++;
+            aux = aux.siguiente;
+        } while (aux != null);
+        return cm;
+    }
+
     public boolean agregar(camino c) {
-        return false;
+        if (c.rt.lt == null) {
+            c.rt.lt = new Listap();
+        }
+        Listap p = c.rt.lt;
+        if (p.contenido == null) {
+            p.contenido = c;
+            c.rt.nCaminos++;
+            return true;
+        }
+        while (p.siguiente != null) {
+            camino c2 = (camino) p.contenido;
+            if (c.comparar(c2)) {
+                return false;
+            }
+            p = p.siguiente;
+        }
+        Listap niu = new Listap();
+        p.siguiente = niu;
+        niu.contenido = c;
+        c.rt.nCaminos++;
+        return true;
     }
 
     public boolean editar(camino c) {
@@ -88,7 +124,6 @@ public class TablaHash {
 
     public boolean agregar(ruta codigo) {
         int n = dohash(codigo.codigo);
-
         if (nl[n] == null) {
             nl[n] = new NodoHash();
         }
@@ -96,6 +131,7 @@ public class TablaHash {
         if (ab) {
             contenedor.getInstance().nruta++;
             System.out.println(n + "   " + codigo.codigo);
+            codigo.c.codigo = codigo.codigo;
         }
         return ab;
     }

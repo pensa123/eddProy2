@@ -11,14 +11,24 @@ package edd.ip.model;
  */
 public class camino {
 
+    public codigo e1;
+    public codigo e2;
+    public codigo r;
     public String est1;
     public Estacion estacion1;
     public String est2;
     public String ruta;
+    public ruta rt;
     public Estacion estacion2;
     public double distancia;
-    public double precio;
+    public double trafico;
     public String cv;
+
+    public boolean comparar(camino c) {
+        return (estacion1.codigo.equals(c.estacion1.codigo)
+                && estacion2.codigo.equals(c.estacion2.codigo)
+                && rt.codigo.equals(c.rt.codigo));
+    }
 
     /**
      * @return the est1
@@ -88,20 +98,6 @@ public class camino {
      */
     public void setDistancia(double distancia) {
         this.distancia = distancia;
-    }
-
-    /**
-     * @return the precio
-     */
-    public double getPrecio() {
-        return precio;
-    }
-
-    /**
-     * @param precio the precio to set
-     */
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     /**

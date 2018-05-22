@@ -188,7 +188,7 @@
                 $scope.myFunc2 = function (a) {
                     $('#rutCod').text(a.codigo);
                     $('#rutNom').text(a.nombre);
-                    window.open('http://localhost:8080/edd-edd/editRut.html?'+a.codigo+','+a.nombre, 'popup', 'width=800,height=600,scrollbars=no,resizable=no');
+                    window.open('http://localhost:8080/edd-edd/editRut.html?' + a.codigo + ',' + a.nombre);
                 };
                 $scope.myFunc = function (a) {
                     $('#exampleModal').modal('toggle');

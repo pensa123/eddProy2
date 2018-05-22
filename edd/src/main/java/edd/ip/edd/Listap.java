@@ -13,14 +13,4 @@ public class Listap {
 
     public Object contenido;
     public Listap siguiente;
-    public String codigo;
-
-    public boolean insertar(Object ob, String cod) {
-        return false;
-    }
-
-    public Object buscar(String cod) {
-        return null;
-    }
-
 }

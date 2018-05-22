@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 
 import edd.ip.edd.contenedor;
 import edd.ip.edd.Listap;
+import edd.ip.model.camino;
 import javax.ws.rs.PathParam;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -45,6 +46,13 @@ public class Estaciones {
      *
      * @return an instance of edd.ip.model.Estacion
      */
+    @GET
+    @Path("/{param}")
+    public camino[] getRut(@PathParam("param") String message) {
+        message = message.split(",")[0];
+        return contenedor.getInstance().getEstacion(message).obtenerCaminos();
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Estacion[] getJson() {
@@ -87,8 +95,9 @@ public class Estaciones {
                     return e;
                 }
             } else {
+                String au = contenedor.json;
                 if (contenedor.getInstance().editarEstacion(e)) {
-                    return e; 
+                    return e;
                 }
             }
         } catch (Exception ee) {

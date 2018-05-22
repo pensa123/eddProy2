@@ -3,11 +3,13 @@
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/edd/contenedor.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/rest/Tickets.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/Pagos.java
+/home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/codigo.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/NodoLista.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/TablaHash.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/rest/Estaciones.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/Estacion.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/Arista.java
+/home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/rest/CaminoResource.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/NodoGrafo.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/rest/Hello.java
 /home/pensa/Escritorio/proy2/edd/src/main/java/edd/ip/model/camino.java

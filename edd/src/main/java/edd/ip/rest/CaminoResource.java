@@ -38,19 +38,30 @@ public class CaminoResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public camino  addRuta(String rt) {
+    public camino addRuta(String rt) {
         camino tur;
         try {
             tur = new ObjectMapper().readValue(rt, camino.class);
             if (tur.getCv() == null) {
+
                 contenedor.getInstance().agregarCamino(tur);
             } else {
-                contenedor.getInstance().thash.editar(tur);
+                contenedor.getInstance().editarCamino(tur);
             }
+            tur.estacion1 = null;
+            tur.estacion2 = null;
+            tur.rt = null;
+            return tur;
         } catch (Exception ioe) {
-            return null;
+            tur = new camino();
+            tur.est1 = "r1";
+            tur.est2 = "r2";
+            tur.ruta = "ruta";
+            tur.estacion1 = null;
+            tur.estacion2 = null;
+            tur.rt = null;
+            return tur;
         }
-        return tur;
     }
 
     /**
@@ -60,9 +71,13 @@ public class CaminoResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public camino getJson() {
+    public camino[] getJson() {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        camino[] cp = new camino[2];
+        cp[0] = new camino();
+        cp[1] = new camino();
+
+        return cp;
     }
 
     /**

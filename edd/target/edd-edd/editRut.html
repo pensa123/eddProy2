@@ -53,11 +53,44 @@
                                 <label for="formGroupExampleInput2">Trafico</label>
                                 <input type="number" step="any" class="form-control" id="ePrecio" placeholder="">
                             </div>
-
+                            <button onclick="guardarEstacion()" type="submit" class="btn btn-primary">Agregar</button>
                         </div>
                     </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-info">
+                                <tr>
+                                    <th scope="col">Sale</th>
+                                    <th scope="col">Llega</th>
+                                    <th scope="col">distancia</th>
+                                    <th scope="col">Trafico</th>
+                                    <th scope="col">Accion</th>
+                                </tr>
+                            </thead>
+
+                            <tr ng-repeat="x in caminos">
+                                <td>{{x.e1.codigo}}</td>
+                                <td>{{x.e2.codigo}}</td>
+                                <td>{{x.distancia}}</td>
+                                <td>{{x.trafico}}</td>
+                                <td>
+                                    <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Update
+                                    </a>
+                                    <a class="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        X
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+
             </div>
+
+
+
             <script src="boostrap/js/jquery-3.3.1.min.js">
             </script>
 
@@ -110,10 +143,11 @@
                         var ap = angular.module('myApp', []);
                         ap.controller('customersCtrl', function ($scope, $http) {
                             $http.get("http://localhost:8080/edd-edd/m/rutas").then(function (response) {
-                                //alert(window.location.search.substr(1));
-
                                 $('#ruta').text((window.location.search.substr(1)));
                                 $scope.myData = response.data;
+                            });
+                            $http.get("http://localhost:8080/edd-edd/m/rutas/" + window.location.search.substr(1)).then(function (response) {
+                                $scope.caminos = response.data;
                             });
                             $http.get("http://localhost:8080/edd-edd/m/estaciones").then(function (response) {
                                 $scope.estaciones = response.data;

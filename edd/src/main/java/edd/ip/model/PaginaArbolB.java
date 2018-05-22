@@ -16,7 +16,7 @@ public class PaginaArbolB {
     public PaginaArbolB[] enlace;
     public Ticket[] contenido;
     public int ntickets, nenlaces;
-    public int ultimoCodigo=0;
+    public int ultimoCodigo = 0;
 
     public PaginaArbolB(int n) {
         enlace = new PaginaArbolB[n];
@@ -179,7 +179,7 @@ public class PaginaArbolB {
     }
 
     public Ticket buscar(int codigo) throws Exception {
-        for (int a = 0; a < this.n - 2; a++) {
+        for (int a = 0; a < this.n - 1; a++) {
             if (contenido[a] == null) {
                 return enlace[a].buscar(codigo);
             }
@@ -192,16 +192,16 @@ public class PaginaArbolB {
         }
         return enlace[n - 1].buscar(codigo);
     }
-    
-    public Ticket buscarIngrid(String verificacion){
-        for(int i = 1; i <= this.ultimoCodigo; i++){
+
+    public Ticket buscarIngrid(String verificacion) {
+        for (int i = 1; i <= this.ultimoCodigo; i++) {
             try {
                 Ticket aux = this.buscar(i);
-            if(aux.verificacion.equals(verificacion)){
-                return aux;
-            }
-            } catch(Exception e){
-                
+                if (aux.verificacion.equals(verificacion)) {
+                    return aux;
+                }
+            } catch (Exception e) {
+
             }
         }
         return null;

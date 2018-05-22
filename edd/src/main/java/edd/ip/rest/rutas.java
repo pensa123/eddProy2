@@ -6,6 +6,7 @@
 package edd.ip.rest;
 
 import edd.ip.edd.contenedor;
+import edd.ip.model.camino;
 import edd.ip.model.ruta;
 import java.io.IOException;
 import java.util.List;
@@ -47,10 +48,11 @@ public class rutas {
      */
     @GET
     @Path("/{param}")
-    public ruta getRut(@PathParam("param") String message) {
+    public camino[] getRut(@PathParam("param") String message) {
         String output = "busca la ruta " + message + "!";
-
-        return contenedor.getInstance().thash.getRut(message);
+        output += "j";
+        output = "";
+        return contenedor.getInstance().thash.getcaminos(message.split(",")[0] + output);
     }
 
     @POST

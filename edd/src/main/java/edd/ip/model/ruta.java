@@ -13,12 +13,14 @@ import edd.ip.edd.Listap;
  */
 public class ruta {
 
+    public codigo c = new codigo();
     public String cv;
     public String codigo;
     public String nombre;
     public String color;
     public Grafo grafo;
     public Listap lt;
+    public int nCaminos;
 
     public ruta() {
 
